@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Portfolio
+{% endblock %}
+
+{% block main %}
+<div class="wrapper">
+    <div class="box a">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th><button class="btn btn-secondary" onclick="gotoAdd()">Add</button></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item["symbol"] }}</td>
+                <td>{{ item["price"] }}</td>
+                <td><button class="btn btn-primary" id="{{ item['symbol'] }}" onclick="buttonClick('{{ item['symbol'] }}')">Remove</button></td>
+
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="box b">
+        <center>
+            <div class="mb-3">
+
+			Symbol:
+			<select name="symbol-select"  id="symbol-select" onchange="updateChart()">
+              {% for item in items %}
+              <option value="{{ item['symbol'] }}">{{ item['symbol'] }}</option>
+              {% endfor %}
+            </select>
+			Range:
+			<select name="timeframe-select" id="timeframe-select" onchange="updateChart()">
+              <option value="1w">1 week</option>
+              <option value="1m">1 Month</option>
+                <option value="3m" selected>3 months</option>
+                <option value="6m">6 Months</option>
+                <option value="1y">1 Year</option>
+            </select>
+
+            </div>
+            <div id="chart-wrapper"></div>
+
+        </center>
+    </div>
+    <script>
+    updateChart()
+    </script>
+</div>
+{% endblock %}
